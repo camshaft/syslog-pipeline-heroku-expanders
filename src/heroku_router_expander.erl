@@ -24,21 +24,27 @@ metric({<<"method">>, Method}) ->
     {<<"measure">>, <<"method">>},
     {<<"val">>, 1},
     {<<"units">>, <<"requests">>},
-    {<<"state">>, Method}
+    {<<"tags">>, [
+      Method
+    ]}
   ];
 metric({<<"path">>, Path}) ->
   [
     {<<"measure">>, <<"path">>},
     {<<"val">>, 1},
     {<<"units">>, <<"requests">>},
-    {<<"state">>, Path}
+    {<<"tags">>, [
+      Path
+    ]}
   ];
 metric({<<"status">>, StatusCode}) ->
   [
     {<<"measure">>, <<"status_code">>},
     {<<"val">>, 1},
     {<<"units">>, <<"requests">>},
-    {<<"state">>, StatusCode}
+    {<<"tags">>, [
+      StatusCode
+    ]}
   ];
 metric({<<"queue">>, Queue}) ->
   [

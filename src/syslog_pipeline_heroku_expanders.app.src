@@ -1,0 +1,12 @@
+{application, syslog_pipeline_heroku_expanders, [
+  {description, "Collection of syslog pipeline expanders"},
+  {vsn, "1"},
+  {modules, []},
+  {registered, []},
+  {applications, [
+    kernel,
+    stdlib
+  ]},
+  {mod, {heroku_pipeline_heroku_expanders_app, []}},
+  {env, []}
+]}.

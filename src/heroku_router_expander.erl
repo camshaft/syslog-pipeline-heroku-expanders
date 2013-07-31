@@ -25,7 +25,8 @@ metric({<<"method">>, Method}) ->
     {<<"val">>, 1},
     {<<"units">>, <<"requests">>},
     {<<"tags">>, [
-      Method
+      Method,
+      <<"router">>
     ]}
   ];
 metric({<<"path">>, Path}) ->
@@ -34,7 +35,8 @@ metric({<<"path">>, Path}) ->
     {<<"val">>, 1},
     {<<"units">>, <<"requests">>},
     {<<"tags">>, [
-      Path
+      Path,
+      <<"router">>
     ]}
   ];
 metric({<<"status">>, StatusCode}) ->
@@ -43,38 +45,54 @@ metric({<<"status">>, StatusCode}) ->
     {<<"val">>, 1},
     {<<"units">>, <<"requests">>},
     {<<"tags">>, [
-      StatusCode
+      StatusCode,
+      <<"router">>
     ]}
   ];
 metric({<<"queue">>, Queue}) ->
   [
     {<<"measure">>, <<"queue">>},
     {<<"val">>, Queue},
-    {<<"units">>, <<"requests">>}
+    {<<"units">>, <<"requests">>},
+    {<<"tags">>, [
+      <<"router">>
+    ]}
   ];
 metric({<<"connect">>, Connect}) ->
   [
     {<<"measure">>, <<"connect">>},
     {<<"val">>, strip_ms(Connect)},
-    {<<"units">>, <<"ms">>}
+    {<<"units">>, <<"ms">>},
+    {<<"tags">>, [
+      <<"router">>
+    ]}
   ];
 metric({<<"service">>, Service}) ->
   [
     {<<"measure">>, <<"service">>},
     {<<"val">>, strip_ms(Service)},
-    {<<"units">>, <<"ms">>}
+    {<<"units">>, <<"ms">>},
+    {<<"tags">>, [
+      <<"router">>
+    ]}
   ];
 metric({<<"wait">>, Wait}) ->
   [
     {<<"measure">>, <<"wait">>},
     {<<"val">>, strip_ms(Wait)},
-    {<<"units">>, <<"ms">>}
+    {<<"units">>, <<"ms">>},
+    {<<"tags">>, [
+      <<"router">>
+    ]}
   ];
 metric({<<"bytes">>, Bytes}) ->
   [
     {<<"measure">>, <<"bytes_out">>},
     {<<"val">>, Bytes},
-    {<<"units">>, <<"bytes">>}
+    {<<"units">>, <<"bytes">>},
+    {<<"tags">>, [
+      <<"router">>
+    ]}
   ];
 metric(_) ->
   undefined.

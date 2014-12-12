@@ -4,7 +4,16 @@
 
 expand({{_, _, _, _, <<"heroku">>, <<"router">>, _, _}=Headers, Fields}) ->
   RequestID = proplists:get_value(<<"request_id">>, Fields),
-  iterate(Headers, RequestID, Fields, []);
+  iterate(Headers, RequestID, Fields, [
+    merge(Headers, RequestID, [
+      {<<"measure">>, <<"request">>},
+      {<<"val">>, 1},
+      {<<"tags">>, [
+        <<"count">>,
+        <<"router">>
+      ]}
+    ])
+  ]);
 expand(_) ->
   [].
 
@@ -15,9 +24,12 @@ iterate(Headers, RequestID, [Field|Fields], Acc) ->
     undefined ->
       iterate(Headers, RequestID, Fields, Acc);
     ExpandedField ->
-      Message = {Headers, [{<<"request_id">>, RequestID}|ExpandedField]},
+      Message = merge(Headers, RequestID, ExpandedField),
       iterate(Headers, RequestID, Fields, [Message|Acc])
   end.
+
+merge(Headers, RequestID, Field) ->
+  {Headers, [{<<"request_id">>, RequestID}|Field]}.
 
 metric({<<"method">>, Method}) ->
   [

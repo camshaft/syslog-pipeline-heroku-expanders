@@ -21,31 +21,23 @@ iterate(Headers, RequestID, [Field|Fields], Acc) ->
 
 metric({<<"method">>, Method}) ->
   [
-    {<<"measure">>, <<"method">>},
+    {<<"measure">>, <<"method_", Method/binary>>},
     {<<"val">>, 1},
     {<<"units">>, <<"requests">>},
     {<<"tags">>, [
       Method,
-      <<"router">>
-    ]}
-  ];
-metric({<<"path">>, Path}) ->
-  [
-    {<<"measure">>, <<"path">>},
-    {<<"val">>, 1},
-    {<<"units">>, <<"requests">>},
-    {<<"tags">>, [
-      Path,
+      <<"count">>,
       <<"router">>
     ]}
   ];
 metric({<<"status">>, StatusCode}) ->
   [
-    {<<"measure">>, <<"status_code">>},
+    {<<"measure">>, <<"status_code_", StatusCode/binary>>},
     {<<"val">>, 1},
     {<<"units">>, <<"requests">>},
     {<<"tags">>, [
       StatusCode,
+      <<"count">>,
       <<"router">>
     ]}
   ];
@@ -55,6 +47,7 @@ metric({<<"queue">>, Queue}) ->
     {<<"val">>, Queue},
     {<<"units">>, <<"requests">>},
     {<<"tags">>, [
+      <<"measure">>,
       <<"router">>
     ]}
   ];
@@ -64,6 +57,7 @@ metric({<<"connect">>, Connect}) ->
     {<<"val">>, strip_ms(Connect)},
     {<<"units">>, <<"ms">>},
     {<<"tags">>, [
+      <<"measure">>,
       <<"router">>
     ]}
   ];
@@ -73,6 +67,7 @@ metric({<<"service">>, Service}) ->
     {<<"val">>, strip_ms(Service)},
     {<<"units">>, <<"ms">>},
     {<<"tags">>, [
+      <<"measure">>,
       <<"router">>
     ]}
   ];
@@ -82,6 +77,7 @@ metric({<<"wait">>, Wait}) ->
     {<<"val">>, strip_ms(Wait)},
     {<<"units">>, <<"ms">>},
     {<<"tags">>, [
+      <<"measure">>,
       <<"router">>
     ]}
   ];
@@ -91,6 +87,7 @@ metric({<<"bytes">>, Bytes}) ->
     {<<"val">>, Bytes},
     {<<"units">>, <<"bytes">>},
     {<<"tags">>, [
+      <<"measure">>,
       <<"router">>
     ]}
   ];

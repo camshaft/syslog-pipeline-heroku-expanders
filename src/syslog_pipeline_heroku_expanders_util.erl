@@ -5,7 +5,17 @@
 -define(I(Num), (Num =/= 47 andalso Num > 45 andalso Num < 58)).
 
 extract({Header, Fields}) ->
-  extract(Header, Fields, []).
+  extract(format_header(Header), Fields, []).
+
+format_header({Priority, Version, DateTime, Hostname, AppName, ProcID, MessageID, Message}) ->
+  {Priority, Version, DateTime, Hostname, AppName, format_procid(ProcID), MessageID, Message}.
+
+format_procid(<<"app.", Dyno/binary>>) ->
+  <<Dyno/binary, ".app">>;
+format_procid(<<"worker.", Dyno/binary>>) ->
+  <<Dyno/binary, ".worker">>;
+format_procid(ProcID) ->
+  ProcID.
 
 extract(_, [], Acc) ->
   Acc;
